@@ -3,13 +3,15 @@ const americanToBritishSpelling = require("./american-to-british-spelling.js");
 const americanToBritishTitles = require("./american-to-british-titles.js");
 const britishOnly = require("./british-only.js");
 
+// TODO: add time and title handler
+
 class Translator {
   #britishDict = Object.assign(
     {},
     britishOnly,
-    ...[americanOnly, americanToBritishSpelling, americanToBritishTitles].map((el) =>
-      this.#swapKeysAndValues(el),
-    ),
+    ...[americanOnly, americanToBritishSpelling, americanToBritishTitles].map(
+      (el) => this.#swapKeysAndValues(el)
+    )
   );
 
   #americanDict = Object.assign(
@@ -17,7 +19,7 @@ class Translator {
     americanOnly,
     americanToBritishSpelling,
     americanToBritishTitles,
-    this.#swapKeysAndValues(britishOnly),
+    this.#swapKeysAndValues(britishOnly)
   );
 
   #swapKeysAndValues(obj) {
