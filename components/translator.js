@@ -3,22 +3,17 @@ const americanToBritishSpelling = require("./american-to-british-spelling.js");
 const americanToBritishTitles = require("./american-to-british-titles.js");
 const britishOnly = require("./british-only.js");
 
-// TODO: add title handler
-
 class Translator {
   #britishDict = Object.assign(
     {},
     britishOnly,
-    ...[americanOnly, americanToBritishSpelling, americanToBritishTitles].map((el) =>
-      this.#swapKeysAndValues(el),
-    ),
+    ...[americanOnly, americanToBritishSpelling].map((el) => this.#swapKeysAndValues(el)),
   );
 
   #americanDict = Object.assign(
     {},
     americanOnly,
     americanToBritishSpelling,
-    americanToBritishTitles,
     this.#swapKeysAndValues(britishOnly),
   );
 
@@ -26,6 +21,10 @@ class Translator {
     const swapped = Object.entries(obj).map(([key, value]) => [value, key]);
 
     return Object.fromEntries(swapped);
+  }
+
+  #highlight(text) {
+    return `<span class="highlight">${text}</span>`;
   }
 
   #highlightTime(text, searchValue, replaceValue) {
@@ -42,11 +41,29 @@ class Translator {
       const timeIndex = text.indexOf(time);
       return (
         text.slice(0, timeIndex) +
-        `<span class="highlight">${time.replace(searchValue, replaceValue)}</span>` +
+        this.#highlight(time.replace(searchValue, replaceValue)) +
         text.slice(time.length + timeIndex)
       );
     }
     return text;
+  }
+
+  #handleTitle(text, into) {
+    let result = text;
+    let titleDict;
+    if (into === "british") {
+      titleDict = americanToBritishTitles;
+    } else {
+      titleDict = this.#swapKeysAndValues(americanToBritishTitles);
+    }
+    for (const title in titleDict) {
+      const re = new RegExp(title, "gi");
+      if (text.match(re)) {
+        const newTitle = titleDict[title];
+        result = result.replace(re, this.#highlight(newTitle[0].toUpperCase() + newTitle.slice(1)));
+      }
+    }
+    return result;
   }
 
   translate(text, locale) {
@@ -63,12 +80,12 @@ class Translator {
     const parsedText = text.split(/([\s\W])/);
     let translated = parsedText
       .map((txt) => {
-        if (this.#britishDict.hasOwnProperty(txt))
-          return `<span class="highlight">${this.#britishDict[txt]}</span>`;
+        if (this.#britishDict.hasOwnProperty(txt)) return this.#highlight(this.#britishDict[txt]);
         return txt;
       })
       .join("");
     translated = this.#highlightTime(translated, ".", ":");
+    translated = this.#handleTitle(translated, "american");
     return translated;
   }
 
@@ -76,12 +93,12 @@ class Translator {
     const parsedText = text.split(/([\s\W])/);
     let translated = parsedText
       .map((txt) => {
-        if (this.#americanDict.hasOwnProperty(txt))
-          return `<span class="highlight">${this.#americanDict[txt]}</span>`;
+        if (this.#americanDict.hasOwnProperty(txt)) return this.#highlight(this.#americanDict[txt]);
         return txt;
       })
       .join("");
     translated = this.#highlightTime(translated, ":", ".");
+    translated = this.#handleTitle(translated, "british");
     return translated;
   }
 }
