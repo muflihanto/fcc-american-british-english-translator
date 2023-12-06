@@ -4,11 +4,41 @@ const assert = chai.assert;
 const Translator = require("../components/translator.js");
 
 suite("Unit Tests", () => {
+  const translator = new Translator();
+
   suite("Translate to British English", () => {
-    // TODO: Translate Mangoes are my favorite fruit. to British English
-    // TODO: Translate I ate yogurt for breakfast. to British English
-    // TODO: Translate We had a party at my friend's condo. to British English
-    // TODO: Translate Can you toss this in the trashcan for me? to British English
+    // Translate Mangoes are my favorite fruit. to British English
+    test("Translate Mangoes are my favorite fruit. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("Mangoes are my favorite fruit."),
+        'Mangoes are my <span class="highlight">favourite</span> fruit.',
+      );
+      done();
+    });
+    // Translate I ate yogurt for breakfast. to British English
+    test("Translate I ate yogurt for breakfast. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("I ate yogurt for breakfast."),
+        'I ate <span class="highlight">yoghurt</span> for <span class="highlight">brekky</span>.',
+      );
+      done();
+    });
+    // Translate We had a party at my friend's condo. to British English
+    test("Translate We had a party at my friend's condo. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("We had a party at my friend's condo."),
+        'We had a party at my friend\'s <span class="highlight">flat</span>.',
+      );
+      done();
+    });
+    // Translate Can you toss this in the trashcan for me? to British English
+    test("Translate Can you toss this in the trashcan for me? to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("Can you toss this in the trashcan for me?"),
+        'Can you toss this in the <span class="highlight">bin</span> for me?',
+      );
+      done();
+    });
     // TODO: Translate The parking lot was full. to British English
     // TODO: Translate Like a high tech Rube Goldberg machine. to British English
     // TODO: Translate To play hooky means to skip class or work. to British English

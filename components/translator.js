@@ -3,6 +3,8 @@ const americanToBritishSpelling = require("./american-to-british-spelling.js");
 const americanToBritishTitles = require("./american-to-british-titles.js");
 const britishOnly = require("./british-only.js");
 
+// FIXME: handle phrase translate
+
 class Translator {
   #britishDict = Object.assign(
     {},
