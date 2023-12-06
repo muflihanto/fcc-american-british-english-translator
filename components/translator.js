@@ -4,18 +4,9 @@ const americanToBritishTitles = require("./american-to-british-titles.js");
 const britishOnly = require("./british-only.js");
 
 class Translator {
-  #britishDict = Object.assign(
-    {},
-    britishOnly,
-    ...[americanOnly, americanToBritishSpelling].map((el) => this.#swapKeysAndValues(el)),
-  );
+  #britishDict = Object.assign({}, britishOnly, this.#swapKeysAndValues(americanToBritishSpelling));
 
-  #americanDict = Object.assign(
-    {},
-    americanOnly,
-    americanToBritishSpelling,
-    this.#swapKeysAndValues(britishOnly),
-  );
+  #americanDict = Object.assign({}, americanOnly, americanToBritishSpelling);
 
   #swapKeysAndValues(obj) {
     const swapped = Object.entries(obj).map(([key, value]) => [value, key]);
@@ -73,7 +64,11 @@ class Translator {
     } else if (locale === "british-to-american") {
       result = this.handleBritishToAmerican(text);
     }
-    return text === result ? "Everything looks good to me!" : result;
+    const newResult =
+      result[0] === "<"
+        ? '<span class="highlight">' + result[24].toUpperCase() + result.slice(25)
+        : result[0].toUpperCase() + result.slice(1);
+    return text === result ? "Everything looks good to me!" : newResult;
   }
 
   handleBritishToAmerican(text) {
@@ -81,7 +76,7 @@ class Translator {
     for (const word in this.#britishDict) {
       if (translated.toLowerCase().includes(word.toLowerCase())) {
         translated = translated.replace(
-          new RegExp("(?<=\\W)" + word + "(?=\\W)", "gi"),
+          new RegExp(`(?<=\\W)${word}(?=\\W)|^${word}|${word}$`, "gi"),
           this.#highlight(this.#britishDict[word]),
         );
       }
@@ -96,7 +91,7 @@ class Translator {
     for (const word in this.#americanDict) {
       if (translated.toLowerCase().includes(word.toLowerCase())) {
         translated = translated.replace(
-          new RegExp("(?<=\\W)" + word + "(?=\\W)", "gi"),
+          new RegExp(`(?<=\\W)${word}(?=\\W)|^${word}|${word}$`, "gi"),
           this.#highlight(this.#americanDict[word]),
         );
       }

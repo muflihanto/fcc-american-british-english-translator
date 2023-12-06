@@ -19,7 +19,7 @@ suite("Unit Tests", () => {
     test("Translate I ate yogurt for breakfast. to British English", (done) => {
       assert.strictEqual(
         translator.handleAmericanToBritish("I ate yogurt for breakfast."),
-        'I ate <span class="highlight">yoghurt</span> for <span class="highlight">brekky</span>.',
+        'I ate <span class="highlight">yoghurt</span> for breakfast.',
       );
       done();
     });
@@ -89,8 +89,22 @@ suite("Unit Tests", () => {
     });
   });
   suite("Translate to American English", () => {
-    // TODO: Translate We watched the footie match for a while. to American English
-    // TODO: Translate Paracetamol takes up to an hour to work. to American English
+    // Translate We watched the footie match for a while. to American English
+    test("Translate We watched the footie match for a while. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("We watched the footie match for a while."),
+        'We watched the <span class="highlight">soccer</span> match for a while.',
+      );
+      done();
+    });
+    // Translate Paracetamol takes up to an hour to work. to American English
+    test("Translate Paracetamol takes up to an hour to work. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("Paracetamol takes up to an hour to work."),
+        '<span class="highlight">Tylenol</span> takes up to an hour to work.',
+      );
+      done();
+    });
     // TODO: Translate First, caramelise the onions. to American English
     // TODO: Translate I spent the bank holiday at the funfair. to American English
     // TODO: Translate I had a bicky then went to the chippy. to American English
