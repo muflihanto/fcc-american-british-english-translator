@@ -39,9 +39,30 @@ suite("Unit Tests", () => {
       );
       done();
     });
-    // TODO: Translate The parking lot was full. to British English
-    // TODO: Translate Like a high tech Rube Goldberg machine. to British English
-    // TODO: Translate To play hooky means to skip class or work. to British English
+    // Translate The parking lot was full. to British English
+    test("Translate The parking lot was full. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("The parking lot was full."),
+        'The <span class="highlight">car park</span> was full.',
+      );
+      done();
+    });
+    // Translate Like a high tech Rube Goldberg machine. to British English
+    test("Translate Like a high tech Rube Goldberg machine. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("Like a high tech Rube Goldberg machine."),
+        'Like a high tech <span class="highlight">Heath Robinson device</span>.',
+      );
+      done();
+    });
+    // Translate To play hooky means to skip class or work. to British English
+    test("Translate To play hooky means to skip class or work. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("To play hooky means to skip class or work."),
+        'To <span class="highlight">bunk off</span> means to skip class or work.',
+      );
+      done();
+    });
     // TODO: Translate No Mr. Bond, I expect you to die. to British English
     // TODO: Translate Dr. Grosh will see you now. to British English
     // TODO: Translate Lunch is at 12:15 today. to British English

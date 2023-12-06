@@ -3,8 +3,6 @@ const americanToBritishSpelling = require("./american-to-british-spelling.js");
 const americanToBritishTitles = require("./american-to-british-titles.js");
 const britishOnly = require("./british-only.js");
 
-// FIXME: handle phrase translate
-
 class Translator {
   #britishDict = Object.assign(
     {},
@@ -79,26 +77,30 @@ class Translator {
   }
 
   handleBritishToAmerican(text) {
-    const parsedText = text.split(/([\s\W])/);
-    let translated = parsedText
-      .map((txt) => {
-        if (this.#britishDict.hasOwnProperty(txt)) return this.#highlight(this.#britishDict[txt]);
-        return txt;
-      })
-      .join("");
+    let translated = text;
+    for (const word in this.#britishDict) {
+      if (translated.toLowerCase().includes(word.toLowerCase())) {
+        translated = translated.replace(
+          new RegExp("(?<=\\W)" + word + "(?=\\W)", "gi"),
+          this.#highlight(this.#britishDict[word]),
+        );
+      }
+    }
     translated = this.#highlightTime(translated, ".", ":");
     translated = this.#handleTitle(translated, "american");
     return translated;
   }
 
   handleAmericanToBritish(text) {
-    const parsedText = text.split(/([\s\W])/);
-    let translated = parsedText
-      .map((txt) => {
-        if (this.#americanDict.hasOwnProperty(txt)) return this.#highlight(this.#americanDict[txt]);
-        return txt;
-      })
-      .join("");
+    let translated = text;
+    for (const word in this.#americanDict) {
+      if (translated.toLowerCase().includes(word.toLowerCase())) {
+        translated = translated.replace(
+          new RegExp("(?<=\\W)" + word + "(?=\\W)", "gi"),
+          this.#highlight(this.#americanDict[word]),
+        );
+      }
+    }
     translated = this.#highlightTime(translated, ":", ".");
     translated = this.#handleTitle(translated, "british");
     return translated;
