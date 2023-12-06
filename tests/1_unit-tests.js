@@ -63,9 +63,30 @@ suite("Unit Tests", () => {
       );
       done();
     });
-    // TODO: Translate No Mr. Bond, I expect you to die. to British English
-    // TODO: Translate Dr. Grosh will see you now. to British English
-    // TODO: Translate Lunch is at 12:15 today. to British English
+    // Translate No Mr. Bond, I expect you to die. to British English
+    test("Translate No Mr. Bond, I expect you to die. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("No Mr. Bond, I expect you to die."),
+        'No <span class="highlight">Mr</span> Bond, I expect you to die.',
+      );
+      done();
+    });
+    // Translate Dr. Grosh will see you now. to British English
+    test("Translate Dr. Grosh will see you now. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("Dr. Grosh will see you now."),
+        '<span class="highlight">Dr</span> Grosh will see you now.',
+      );
+      done();
+    });
+    // Translate Lunch is at 12:15 today. to British English
+    test("Translate Lunch is at 12:15 today. to British English", (done) => {
+      assert.strictEqual(
+        translator.handleAmericanToBritish("Lunch is at 12:15 today."),
+        'Lunch is at <span class="highlight">12.15</span> today.',
+      );
+      done();
+    });
   });
   suite("Translate to American English", () => {
     // TODO: Translate We watched the footie match for a while. to American English
