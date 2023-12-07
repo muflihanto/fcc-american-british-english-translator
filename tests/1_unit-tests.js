@@ -171,9 +171,37 @@ suite("Unit Tests", () => {
     });
   });
   suite("Highlight translation", () => {
-    // TODO: Highlight translation in Mangoes are my favorite fruit.
-    // TODO: Highlight translation in I ate yogurt for breakfast.
-    // TODO: Highlight translation in We watched the footie match for a while.
-    // TODO: Highlight translation in Paracetamol takes up to an hour to work.
+    // Highlight translation in Mangoes are my favorite fruit.
+    test("Highlight translation in Mangoes are my favorite fruit.", (done) => {
+      assert.include(
+        translator.handleAmericanToBritish("Mangoes are my favorite fruit."),
+        '<span class="highlight">favourite</span>',
+      );
+      done();
+    });
+    // Highlight translation in I ate yogurt for breakfast.
+    test("Highlight translation in I ate yogurt for breakfast.", (done) => {
+      assert.include(
+        translator.handleAmericanToBritish("I ate yogurt for breakfast."),
+        '<span class="highlight">yoghurt</span>',
+      );
+      done();
+    });
+    // Highlight translation in We watched the footie match for a while.
+    test("Highlight translation in We watched the footie match for a while.", (done) => {
+      assert.include(
+        translator.handleBritishToAmerican("We watched the footie match for a while."),
+        '<span class="highlight">soccer</span>',
+      );
+      done();
+    });
+    // Highlight translation in Paracetamol takes up to an hour to work.
+    test("Highlight translation in Paracetamol takes up to an hour to work.", (done) => {
+      assert.include(
+        translator.handleBritishToAmerican("Paracetamol takes up to an hour to work."),
+        '<span class="highlight">Tylenol</span>',
+      );
+      done();
+    });
   });
 });
