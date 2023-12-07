@@ -74,7 +74,7 @@ class Translator {
   handleBritishToAmerican(text) {
     let translated = text;
     for (const word in this.#britishDict) {
-      if (translated.toLowerCase().includes(word.toLowerCase())) {
+      if (text.toLowerCase().includes(word.toLowerCase())) {
         translated = translated.replace(
           new RegExp(`(?<=\\W)${word}(?=\\W)|^${word}|${word}$`, "gi"),
           this.#highlight(this.#britishDict[word]),
@@ -89,7 +89,7 @@ class Translator {
   handleAmericanToBritish(text) {
     let translated = text;
     for (const word in this.#americanDict) {
-      if (translated.toLowerCase().includes(word.toLowerCase())) {
+      if (text.toLowerCase().includes(word.toLowerCase())) {
         translated = translated.replace(
           new RegExp(`(?<=\\W)${word}(?=\\W)|^${word}|${word}$`, "gi"),
           this.#highlight(this.#americanDict[word]),

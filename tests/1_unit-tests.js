@@ -105,14 +105,70 @@ suite("Unit Tests", () => {
       );
       done();
     });
-    // TODO: Translate First, caramelise the onions. to American English
-    // TODO: Translate I spent the bank holiday at the funfair. to American English
-    // TODO: Translate I had a bicky then went to the chippy. to American English
-    // TODO: Translate I've just got bits and bobs in my bum bag. to American English
-    // TODO: Translate The car boot sale at Boxted Airfield was called off. to American English
-    // TODO: Translate Have you met Mrs Kalyani? to American English
-    // TODO: Translate Prof Joyner of King's College, London. to American English
-    // TODO: Translate Tea time is usually around 4 or 4.30. to American English
+    // Translate First, caramelise the onions. to American English
+    test("Translate First, caramelise the onions. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("First, caramelise the onions."),
+        'First, <span class="highlight">caramelize</span> the onions.',
+      );
+      done();
+    });
+    // Translate I spent the bank holiday at the funfair. to American English
+    test("Translate I spent the bank holiday at the funfair. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("I spent the bank holiday at the funfair."),
+        'I spent the <span class="highlight">public holiday</span> at the <span class="highlight">carnival</span>.',
+      );
+      done();
+    });
+    // Translate I had a bicky then went to the chippy. to American English
+    test("Translate I had a bicky then went to the chippy. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("I had a bicky then went to the chippy."),
+        'I had a <span class="highlight">cookie</span> then went to the <span class="highlight">fish-and-chip shop</span>.',
+      );
+      done();
+    });
+    // Translate I've just got bits and bobs in my bum bag. to American English
+    test("Translate I've just got bits and bobs in my bum bag. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("I've just got bits and bobs in my bum bag."),
+        'I\'ve just got <span class="highlight">odds and ends</span> in my <span class="highlight">fanny pack</span>.',
+      );
+      done();
+    });
+    // Translate The car boot sale at Boxted Airfield was called off. to American English
+    test("Translate The car boot sale at Boxted Airfield was called off. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("The car boot sale at Boxted Airfield was called off."),
+        'The <span class="highlight">swap meet</span> at Boxted Airfield was called off.',
+      );
+      done();
+    });
+    // Translate Have you met Mrs Kalyani? to American English
+    test("Translate Have you met Mrs Kalyani? to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("Have you met Mrs Kalyani?"),
+        'Have you met <span class="highlight">Mr.</span>s Kalyani?',
+      );
+      done();
+    });
+    // Translate Prof Joyner of King's College, London. to American English
+    test("Translate Prof Joyner of King's College, London. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("Prof Joyner of King's College, London."),
+        '<span class="highlight">Prof.</span> Joyner of King\'s College, London.',
+      );
+      done();
+    });
+    // Translate Tea time is usually around 4 or 4.30. to American English
+    test("Translate Tea time is usually around 4 or 4.30. to American English", (done) => {
+      assert.strictEqual(
+        translator.handleBritishToAmerican("Tea time is usually around 4 or 4.30."),
+        'Tea time is usually around 4 or <span class="highlight">4:30</span>.',
+      );
+      done();
+    });
   });
   suite("Highlight translation", () => {
     // TODO: Highlight translation in Mangoes are my favorite fruit.
